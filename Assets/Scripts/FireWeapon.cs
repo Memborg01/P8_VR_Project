@@ -5,12 +5,10 @@ public class FireWeapon : MonoBehaviour {
 
     public Rigidbody projectile;
     public float speed;
-    public Quaternion bulletRotation;
 
     public bullet Bullet;
 
-    Vector3 bulletDir;
-    GameObject collidingObj, zoomLens;
+    public GameObject collidingObj, zoomLens;
     bool lensActive;
     Renderer render;
     Color targetColor;
@@ -34,12 +32,6 @@ public class FireWeapon : MonoBehaviour {
 
 	void Update () {
 
-        bulletRotation = transform.rotation;
-
-        bulletRotation = new Quaternion(180, 0,transform.localPosition.z,0);
-
-        Vector3 shootDir = transform.InverseTransformPoint(transform.position);
-
         ray = new Ray(transform.position, transform.forward);
         
 
@@ -51,7 +43,8 @@ public class FireWeapon : MonoBehaviour {
 
             Bullet = instantiateBullet.GetComponent<bullet>();
 
-            Debug.DrawRay(transform.position, transform.forward * 30, Color.magenta, 200f);
+            // Debug.DrawRay(transform.position, transform.forward * 30, Color.magenta, 200f);
+
             // Raycast collision check
 
             if (Physics.Raycast(ray, out bulletHit))
@@ -78,8 +71,8 @@ public class FireWeapon : MonoBehaviour {
 
         }
 
-        
 
+        ToggleZoom();
 
 
 
