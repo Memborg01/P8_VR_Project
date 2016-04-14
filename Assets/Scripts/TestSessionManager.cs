@@ -8,11 +8,15 @@ public class TestSessionManager : MonoBehaviour {
     GameObject[] targets;
     GameObject ironSight, scope;
 
+    GameObject M4A1, UMP45;
+
     public Color checkColor, resetColor;
 
     Renderer targetRender;
 
-    bool useIronSight, useScope;
+    bool useIronSight, useScope, currentWeapon, weaponStock;
+
+    int weaponInt = 1;
 
 
 
@@ -26,13 +30,20 @@ public class TestSessionManager : MonoBehaviour {
         
         targets = GameObject.FindGameObjectsWithTag("target");
 
+        M4A1 = GameObject.Find("M4A1 Sopmod");
+        UMP45 = GameObject.Find("UMP-45");
+
 
         useIronSight = true;
         useScope = false;
-
+        currentWeapon = true;
+        weaponStock = false;
 
         ironSight.SetActive(useIronSight);
         scope.SetActive(useScope);
+
+        M4A1.SetActive(currentWeapon);
+        UMP45.SetActive(weaponStock);
 
 
     }
@@ -53,7 +64,7 @@ public class TestSessionManager : MonoBehaviour {
         }
 
         ToggleSight();
-        
+        CycleWeapons();
 
 
     }
@@ -130,6 +141,32 @@ public class TestSessionManager : MonoBehaviour {
 
     }
 
+    public void CycleWeapons()
+    {
 
+        if (Input.GetButtonDown("Fire3"))
+        {
+
+            weaponInt++;
+
+            if(weaponInt > 2)
+            {
+                weaponInt = 1;
+            }
+
+            if(weaponInt == 1)
+            {
+                M4A1.SetActive(currentWeapon);
+                UMP45.SetActive(weaponStock);
+            }
+            if(weaponInt == 2)
+            {
+                M4A1.SetActive(weaponStock);
+                UMP45.SetActive(currentWeapon);
+            }
+
+        }
+
+    }
 
 }
