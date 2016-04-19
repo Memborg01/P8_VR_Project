@@ -45,11 +45,13 @@ public class TestSessionManager : MonoBehaviour {
         M4A1.SetActive(currentWeapon);
         UMP45.SetActive(weaponStock);
 
+ 
+
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 
         CheckTargets();
 

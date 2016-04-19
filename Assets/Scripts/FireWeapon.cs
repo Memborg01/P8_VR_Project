@@ -15,14 +15,18 @@ public class FireWeapon : MonoBehaviour {
     Ray ray;
     RaycastHit bulletHit;
 
+    void Awake()
+    {
+        zoomLens = GameObject.Find("LensZoom");
+    }
 
     void Start()
     {
 
-        zoomLens = GameObject.Find("LensZoom");
+        
         targetColor = Color.cyan;
 
-        lensActive = false;
+        lensActive = true;
 
         zoomLens.SetActive(lensActive);
         
@@ -72,28 +76,13 @@ public class FireWeapon : MonoBehaviour {
         }
 
 
-        ToggleZoom();
+        
 
 
 
 
 
 	}
-
-    public void ToggleZoom()
-    {
-
-
-
-        if (Input.GetButtonDown("Fire2"))
-        {
-
-            lensActive = !lensActive;
-
-            zoomLens.SetActive(lensActive);
-
-        }
-    }
 
     
 }
