@@ -39,7 +39,7 @@ public class FireWeapon : MonoBehaviour {
         ray = new Ray(transform.position, transform.forward);
         
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") || SixenseInput.Controllers[1].Trigger == 1)
         {
             Rigidbody instantiateBullet = Instantiate(projectile, transform.position, projectile.gameObject.transform.rotation) as Rigidbody;
 
