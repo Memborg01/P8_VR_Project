@@ -8,17 +8,17 @@ public class TestSessionManager : MonoBehaviour {
     GameObject[] targets;
     GameObject ironSight, scope;
 
-    GameObject M4A1, UMP45;
+    GameObject M4A1, UMP45, HydraController;
 
     public Color checkColor, resetColor;
 
     Renderer targetRender;
 
-    bool useIronSight, useScope, currentWeapon, weaponStock;
+    bool useIronSight, useScope, currentWeapon, weaponStock, FirstHydraInit;
 
     int weaponInt = 1;
 
-
+    SixenseHandsController HydraGunController;
 
     // Use this for initialization
     void Start () {
@@ -32,18 +32,23 @@ public class TestSessionManager : MonoBehaviour {
 
         M4A1 = GameObject.Find("M4A1 Sopmod");
         UMP45 = GameObject.Find("UMP-45");
+        HydraController = GameObject.Find("HydraController");
+
+        HydraGunController = HydraController.GetComponent<SixenseHandsController>();
 
 
         useIronSight = true;
         useScope = false;
         currentWeapon = true;
         weaponStock = false;
+        FirstHydraInit = true;
 
         ironSight.SetActive(useIronSight);
         scope.SetActive(useScope);
 
-        M4A1.SetActive(currentWeapon);
-        UMP45.SetActive(weaponStock);
+        
+
+        
 
  
 
@@ -52,6 +57,14 @@ public class TestSessionManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
+        if(HydraGunController.m_bInitialized == true && FirstHydraInit == true)
+        {
+            M4A1.SetActive(currentWeapon);
+            UMP45.SetActive(weaponStock);
+
+            FirstHydraInit = false;
+        }
 
         CheckTargets();
 

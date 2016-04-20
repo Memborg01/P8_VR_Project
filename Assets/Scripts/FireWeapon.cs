@@ -53,7 +53,7 @@ public class FireWeapon : MonoBehaviour {
 
             if (Physics.Raycast(ray, out bulletHit))
             {
-                Debug.Log("Physics Raycast");
+                //Debug.Log("Physics Raycast");
                
                 if (bulletHit.collider != null)
                 {
@@ -63,7 +63,7 @@ public class FireWeapon : MonoBehaviour {
                     
                     if (bulletHit.collider.gameObject.tag == "target")
                     {
-                        Debug.Log("collider is target");
+                        //Debug.Log("collider is target");
                         render = collidingObj.GetComponent<Renderer>();
                         render.material.SetColor("_Color", targetColor);
                     }
