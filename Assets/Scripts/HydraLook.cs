@@ -43,6 +43,7 @@ public class HydraLook : MonoBehaviour
             rotArrayY.Add(rotationY);
             rotArrayX.Add(rotationX);
 
+            /*
             if (rotArrayY.Count >= frameCounter)
             {
                 rotArrayY.RemoveAt(0);
@@ -51,7 +52,7 @@ public class HydraLook : MonoBehaviour
             {
                 rotArrayX.RemoveAt(0);
             }
-
+            */
             for (int j = 0; j < rotArrayY.Count; j++)
             {
                 rotAverageY += rotArrayY[j];
