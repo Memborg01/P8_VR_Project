@@ -15,9 +15,16 @@ public class FireWeapon : MonoBehaviour {
     Ray ray;
     RaycastHit bulletHit;
 
+    GameObject gameManager;
+
+    
+    PointSystem pointSystem;
+    public HitCheck hitCheck;
+
     void Awake()
     {
         zoomLens = GameObject.Find("LensZoom");
+        gameManager = GameObject.Find("GameManager");
     }
 
     void Start()
@@ -29,6 +36,8 @@ public class FireWeapon : MonoBehaviour {
         lensActive = true;
 
         zoomLens.SetActive(lensActive);
+
+        pointSystem = gameManager.GetComponent<PointSystem>();
         
 
     }
@@ -47,25 +56,76 @@ public class FireWeapon : MonoBehaviour {
 
             Bullet = instantiateBullet.GetComponent<bullet>();
 
-            // Debug.DrawRay(transform.position, transform.forward * 30, Color.magenta, 200f);
+            //Debug.DrawRay(transform.position, transform.forward * 30, Color.magenta, 200f);
 
             // Raycast collision check
 
             if (Physics.Raycast(ray, out bulletHit))
             {
                 //Debug.Log("Physics Raycast");
-               
+                Debug.DrawRay(transform.position, transform.forward * 30, Color.magenta, 200f);
                 if (bulletHit.collider != null)
                 {
                     collidingObj = bulletHit.collider.gameObject;
                     Vector3 collPos = collidingObj.transform.position;
 
                     
-                    if (bulletHit.collider.gameObject.tag == "target")
+                    if (bulletHit.collider.gameObject.name == "centerTarget")
                     {
                         //Debug.Log("collider is target");
                         render = collidingObj.GetComponent<Renderer>();
                         render.material.SetColor("_Color", targetColor);
+
+                        hitCheck = collidingObj.GetComponent<HitCheck>();
+
+
+                        if (hitCheck.isHit == false)
+                        {
+                            pointSystem.centerHit();
+                            hitCheck.isHit = true;
+
+                        }
+
+                        
+                        
+
+                    }
+
+                    if (bulletHit.collider.gameObject.name == "1_target")
+                    {
+                        //Debug.Log("collider is target");
+                        render = collidingObj.GetComponent<Renderer>();
+                        render.material.SetColor("_Color", targetColor);
+
+                        hitCheck = collidingObj.GetComponent<HitCheck>();
+
+                        if(hitCheck.isHit == false)
+                        {
+                            pointSystem.innerRingHit();
+                            hitCheck.isHit = true;
+                        }
+                       
+
+
+                    }
+
+                    if (bulletHit.collider.gameObject.name == "2_target")
+                    {
+                        //Debug.Log("collider is target");
+                        render = collidingObj.GetComponent<Renderer>();
+                        render.material.SetColor("_Color", targetColor);
+
+                        hitCheck = collidingObj.GetComponent<HitCheck>();
+
+                        if(hitCheck.isHit == false)
+                        {
+                            pointSystem.outerRingHit();
+                            hitCheck.isHit = true;
+                        }
+                        
+
+
+
                     }
                     Bullet.destroyBullet();
                     
