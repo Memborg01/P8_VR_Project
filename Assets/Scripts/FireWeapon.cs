@@ -7,7 +7,7 @@ public class FireWeapon : MonoBehaviour {
     public float speed;
 
     public bullet Bullet;
-
+    public GameObject hitAni;
     public GameObject collidingObj, zoomLens;
     bool lensActive;
     Renderer render;
@@ -49,20 +49,24 @@ public class FireWeapon : MonoBehaviour {
 
 	void Update () {
 
-        ray = new Ray(transform.position, transform.forward);
+      
 
         if (Input.GetButtonDown("Fire1") || SixenseInput.Controllers[1].Trigger == 1 && hasFired == false)
         {
-
+            print("FIRE");
             hasFired = true;
+            ray = new Ray(transform.position, transform.forward);
 
+            if(Physics.Raycast(ray, out bulletHit))
+            {
+                GameObject newAni = Instantiate(hitAni, bulletHit.point, Quaternion.identity) as GameObject;
 
+            }
+            //Rigidbody instantiateBullet = Instantiate(projectile, transform.position, projectile.gameObject.transform.rotation) as Rigidbody;
 
-            Rigidbody instantiateBullet = Instantiate(projectile, transform.position, projectile.gameObject.transform.rotation) as Rigidbody;
+            // instantiateBullet.velocity = transform.TransformDirection(new Vector3(0, 0, speed));
 
-            instantiateBullet.velocity = transform.TransformDirection(new Vector3(0, 0, speed));
-
-            Bullet = instantiateBullet.GetComponent<bullet>();
+            // Bullet = instantiateBullet.GetComponent<bullet>();
 
             //Debug.DrawRay(transform.position, transform.forward * 30, Color.magenta, 200f);
 
@@ -148,7 +152,7 @@ public class FireWeapon : MonoBehaviour {
 
 
                     }
-                    Bullet.destroyBullet();
+                   // Bullet.destroyBullet();
                     
                 }
             }
