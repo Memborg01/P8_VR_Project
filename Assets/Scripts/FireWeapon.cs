@@ -169,7 +169,7 @@ public class FireWeapon : MonoBehaviour {
     {
 
         int amountChilds = parent.transform.childCount;
-        GameObject[] targetChilds = [amountChilds];
+        GameObject[] targetChilds = new GameObject[amountChilds];
 
         HitCheck targetHit, setTargets;
        
