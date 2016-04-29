@@ -51,8 +51,7 @@ public class FireWeapon : MonoBehaviour {
 
         ray = new Ray(transform.position, transform.forward);
 
-
-        if ((Input.GetButtonDown("Fire1") || SixenseInput.Controllers[1].Trigger == 1) && hasFired == false)
+        if (Input.GetButtonDown("Fire1") /*|| SixenseInput.Controllers[1].Trigger == 1*/ && hasFired == false)
         {
 
             hasFired = true;
@@ -82,14 +81,15 @@ public class FireWeapon : MonoBehaviour {
                     if (bulletHit.collider.gameObject.name == "centerTarget")
                     {
                         //Debug.Log("collider is target");
-                        render = collidingObj.GetComponent<Renderer>();
-                        render.material.SetColor("_Color", targetColor);
-
+                        
                         hitCheck = collidingObj.GetComponent<HitCheck>();
 
     
                         if (hitCheck.isHit == false)
                         {
+                            render = collidingObj.GetComponent<Renderer>();
+                            render.material.SetColor("_Color", targetColor);
+
                             pointSystem.centerHit();
                             hitCheck.isHit = true;
 
@@ -106,13 +106,16 @@ public class FireWeapon : MonoBehaviour {
                     if (bulletHit.collider.gameObject.name == "1_target")
                     {
                         //Debug.Log("collider is target");
-                        render = collidingObj.GetComponent<Renderer>();
-                        render.material.SetColor("_Color", targetColor);
+                        
 
                         hitCheck = collidingObj.GetComponent<HitCheck>();
 
                         if(hitCheck.isHit == false)
                         {
+
+                            render = collidingObj.GetComponent<Renderer>();
+                            render.material.SetColor("_Color", targetColor);
+
                             pointSystem.innerRingHit();
                             hitCheck.isHit = true;
                         }
@@ -127,13 +130,14 @@ public class FireWeapon : MonoBehaviour {
                     if (bulletHit.collider.gameObject.name == "2_target")
                     {
                         //Debug.Log("collider is target");
-                        render = collidingObj.GetComponent<Renderer>();
-                        render.material.SetColor("_Color", targetColor);
+                        
 
                         hitCheck = collidingObj.GetComponent<HitCheck>();
 
                         if(hitCheck.isHit == false)
                         {
+                            render = collidingObj.GetComponent<Renderer>();
+                            render.material.SetColor("_Color", targetColor);
                             pointSystem.outerRingHit();
                             hitCheck.isHit = true;
                         }
@@ -149,21 +153,24 @@ public class FireWeapon : MonoBehaviour {
                 }
             }
 
-            if (Input.GetButtonDown("Fire1") == false && SixenseInput.Controllers[1].Trigger == 0)
-            {
-                hasFired = false;
-            }
+           
 
         }
 
+        if (Input.GetButtonDown("Fire1") == false /*&& SixenseInput.Controllers[1].Trigger == 0*/)
+        {
+            hasFired = false;
+          
+        }
 
-        
 
 
 
 
 
-	}
+
+
+    }
 
     public void checkTarget(GameObject parent)
     {

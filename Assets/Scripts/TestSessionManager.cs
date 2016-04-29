@@ -20,6 +20,8 @@ public class TestSessionManager : MonoBehaviour {
 
     SixenseHandsController HydraGunController;
 
+    HitCheck resetTargets;
+
     // Use this for initialization
     void Start () {
         
@@ -74,6 +76,11 @@ public class TestSessionManager : MonoBehaviour {
             colorChanged = false;
             for(int j = 0; j < targets.Length; j++)
             {
+
+                resetTargets = targets[j].GetComponent<HitCheck>();
+
+                resetTargets.isHit = false;
+
                 targetRender = targets[j].GetComponent<Renderer>();
                 if(targets[j].gameObject.name == "1_target")
                 {
@@ -192,5 +199,7 @@ public class TestSessionManager : MonoBehaviour {
         }
 
     }
+
+
 
 }
