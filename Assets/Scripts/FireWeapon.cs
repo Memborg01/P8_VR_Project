@@ -51,7 +51,7 @@ public class FireWeapon : MonoBehaviour {
 
         ray = new Ray(transform.position, transform.forward);
 
-        if (Input.GetButtonDown("Fire1") /*|| SixenseInput.Controllers[1].Trigger == 1*/ && hasFired == false)
+        if (Input.GetButtonDown("Fire1") || SixenseInput.Controllers[1].Trigger == 1 && hasFired == false)
         {
 
             hasFired = true;
@@ -157,7 +157,7 @@ public class FireWeapon : MonoBehaviour {
 
         }
 
-        if (Input.GetButtonDown("Fire1") == false /*&& SixenseInput.Controllers[1].Trigger == 0*/)
+        if (Input.GetButtonDown("Fire1") == false && SixenseInput.Controllers[1].Trigger == 0)
         {
             hasFired = false;
           

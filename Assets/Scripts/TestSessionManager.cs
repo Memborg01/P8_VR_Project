@@ -22,6 +22,8 @@ public class TestSessionManager : MonoBehaviour {
 
     HitCheck resetTargets;
 
+
+
     // Use this for initialization
     void Start () {
         
