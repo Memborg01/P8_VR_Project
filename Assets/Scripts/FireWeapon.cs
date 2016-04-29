@@ -21,6 +21,8 @@ public class FireWeapon : MonoBehaviour {
     PointSystem pointSystem;
     public HitCheck hitCheck;
 
+    public bool hasFired;
+
     void Awake()
     {
         zoomLens = GameObject.Find("LensZoom");
@@ -35,6 +37,8 @@ public class FireWeapon : MonoBehaviour {
 
         lensActive = true;
 
+        hasFired = false;
+
         zoomLens.SetActive(lensActive);
 
         pointSystem = gameManager.GetComponent<PointSystem>();
@@ -46,10 +50,15 @@ public class FireWeapon : MonoBehaviour {
 	void Update () {
 
         ray = new Ray(transform.position, transform.forward);
-        
 
-        if (Input.GetButtonDown("Fire1") || SixenseInput.Controllers[1].Trigger == 1)
+
+        if ((Input.GetButtonDown("Fire1") || SixenseInput.Controllers[1].Trigger == 1) && hasFired == false)
         {
+
+            hasFired = true;
+
+
+
             Rigidbody instantiateBullet = Instantiate(projectile, transform.position, projectile.gameObject.transform.rotation) as Rigidbody;
 
             instantiateBullet.velocity = transform.TransformDirection(new Vector3(0, 0, speed));
@@ -78,13 +87,16 @@ public class FireWeapon : MonoBehaviour {
 
                         hitCheck = collidingObj.GetComponent<HitCheck>();
 
-
+    
                         if (hitCheck.isHit == false)
                         {
                             pointSystem.centerHit();
                             hitCheck.isHit = true;
 
                         }
+
+                        GameObject targetParent = bulletHit.collider.gameObject.transform.parent.gameObject;
+                        checkTarget(targetParent);
 
                         
                         
@@ -104,7 +116,10 @@ public class FireWeapon : MonoBehaviour {
                             pointSystem.innerRingHit();
                             hitCheck.isHit = true;
                         }
-                       
+
+                        GameObject targetParent = bulletHit.collider.gameObject.transform.parent.gameObject;
+                        checkTarget(targetParent);
+
 
 
                     }
@@ -122,7 +137,9 @@ public class FireWeapon : MonoBehaviour {
                             pointSystem.outerRingHit();
                             hitCheck.isHit = true;
                         }
-                        
+
+                        GameObject targetParent = bulletHit.collider.gameObject.transform.parent.gameObject;
+                        checkTarget(targetParent);
 
 
 
@@ -132,6 +149,10 @@ public class FireWeapon : MonoBehaviour {
                 }
             }
 
+            if (Input.GetButtonDown("Fire1") == false && SixenseInput.Controllers[1].Trigger == 0)
+            {
+                hasFired = false;
+            }
 
         }
 
@@ -144,5 +165,39 @@ public class FireWeapon : MonoBehaviour {
 
 	}
 
-    
+    public void checkTarget(GameObject parent)
+    {
+
+        int amountChilds = parent.transform.childCount;
+        GameObject[] targetChilds = [amountChilds];
+
+        HitCheck targetHit, setTargets;
+       
+
+        for(int i = 0; i < amountChilds; i++)
+        {
+            targetChilds[i] = parent.transform.GetChild(i).gameObject;
+        }
+
+        for(int i = 0; i < amountChilds; i++)
+        {
+
+            targetHit = targetChilds[i].GetComponent<HitCheck>();
+
+            if(targetHit.isHit == true)
+            {
+                for(int j = 0; j < amountChilds; j++)
+                {
+                    setTargets = targetChilds[j].GetComponent<HitCheck>();
+
+                    setTargets.isHit = true;
+                }
+            }
+
+        }
+
+
+    }
+
+
 }

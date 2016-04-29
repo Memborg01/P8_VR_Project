@@ -10,7 +10,7 @@ public class TestSessionManager : MonoBehaviour {
 
     GameObject M4A1, UMP45, HydraController;
 
-    public Color checkColor, resetColor;
+    public Color checkColor, resetColor1, resetColor2;
 
     Renderer targetRender;
 
@@ -24,7 +24,8 @@ public class TestSessionManager : MonoBehaviour {
     void Start () {
         
         checkColor = Color.cyan;
-        resetColor = Color.red;
+        resetColor1 = Color.red;
+        resetColor2 = Color.white;
         ironSight = GameObject.Find("M4A1_Sopmod_Iron_Sight");
         scope = GameObject.Find("ACOG Sight");
         
@@ -74,7 +75,15 @@ public class TestSessionManager : MonoBehaviour {
             for(int j = 0; j < targets.Length; j++)
             {
                 targetRender = targets[j].GetComponent<Renderer>();
-                targetRender.material.SetColor("_Color", resetColor);
+                if(targets[j].gameObject.name == "1_target")
+                {
+                    targetRender.material.SetColor("_Color", resetColor2);
+                }
+                else
+                {
+                    targetRender.material.SetColor("_Color", resetColor1);
+                }
+                
             }
         }
 
