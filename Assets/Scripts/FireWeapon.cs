@@ -8,7 +8,7 @@ public class FireWeapon : MonoBehaviour {
 
     public bullet Bullet;
     public GameObject hitAni;
-    public GameObject collidingObj, zoomLens;
+    public GameObject collidingObj;
     bool lensActive;
     Renderer render;
     Color targetColor;
@@ -25,7 +25,6 @@ public class FireWeapon : MonoBehaviour {
 
     void Awake()
     {
-        zoomLens = GameObject.Find("LensZoom");
         gameManager = GameObject.Find("GameManager");
     }
 
@@ -39,7 +38,7 @@ public class FireWeapon : MonoBehaviour {
 
         hasFired = false;
 
-        zoomLens.SetActive(lensActive);
+
 
         pointSystem = gameManager.GetComponent<PointSystem>();
         

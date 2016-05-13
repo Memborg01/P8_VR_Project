@@ -8,7 +8,7 @@ public class TestSessionManager : MonoBehaviour {
     GameObject[] targets;
     GameObject ironSight, scope;
 
-    GameObject M4A1, UMP45, HydraController;
+    GameObject M4A1_Right, M4A1_Left, HydraController;
 
     public Color checkColor, resetColor1, resetColor2;
 
@@ -30,13 +30,12 @@ public class TestSessionManager : MonoBehaviour {
         checkColor = Color.cyan;
         resetColor1 = Color.red;
         resetColor2 = Color.white;
-        ironSight = GameObject.Find("M4A1_Sopmod_Iron_Sight");
-        scope = GameObject.Find("ACOG Sight");
-        
+  
         targets = GameObject.FindGameObjectsWithTag("target");
 
-        M4A1 = GameObject.Find("M4A1 Sopmod");
-        UMP45 = GameObject.Find("UMP-45");
+        M4A1_Right = GameObject.Find("M4A1 SopmodRight");
+        M4A1_Left = GameObject.Find("M4A1 SopmodLeft");
+       
         HydraController = GameObject.Find("HydraController");
 
         HydraGunController = HydraController.GetComponent<SixenseHandsController>();
@@ -48,8 +47,8 @@ public class TestSessionManager : MonoBehaviour {
         weaponStock = false;
         FirstHydraInit = true;
 
-        ironSight.SetActive(useIronSight);
-        scope.SetActive(useScope);
+   
+ 
 
         
 
@@ -65,8 +64,8 @@ public class TestSessionManager : MonoBehaviour {
 
         if(HydraGunController.m_bInitialized == true && FirstHydraInit == true)
         {
-            M4A1.SetActive(currentWeapon);
-            UMP45.SetActive(weaponStock);
+            M4A1_Right.SetActive(currentWeapon);
+            M4A1_Left.SetActive(weaponStock);
 
             FirstHydraInit = false;
         }
@@ -96,7 +95,7 @@ public class TestSessionManager : MonoBehaviour {
             }
         }
 
-        ToggleSight();
+      
         CycleWeapons();
 
 
@@ -150,29 +149,7 @@ public class TestSessionManager : MonoBehaviour {
 
     }
 
-    public void ToggleSight()
-    {
 
-        if (Input.GetButtonDown("num_1"))
-        {
-            useIronSight = true;
-            useScope = false;
-
-
-            ironSight.SetActive(useIronSight);
-            scope.SetActive(useScope);
-        }
-        if (Input.GetButtonDown("num_2"))
-        {
-            useIronSight = false;
-            useScope = true;
-
-
-            ironSight.SetActive(useIronSight);
-            scope.SetActive(useScope);
-        }
-
-    }
 
     public void CycleWeapons()
     {
@@ -182,20 +159,28 @@ public class TestSessionManager : MonoBehaviour {
 
             weaponInt++;
 
-            if(weaponInt > 2)
+            if(weaponInt > 3)
             {
                 weaponInt = 1;
             }
 
             if(weaponInt == 1)
             {
-                M4A1.SetActive(currentWeapon);
-                UMP45.SetActive(weaponStock);
+                M4A1_Right.SetActive(currentWeapon);
+                M4A1_Left.SetActive(weaponStock);
             }
             if(weaponInt == 2)
             {
-                M4A1.SetActive(weaponStock);
-                UMP45.SetActive(currentWeapon);
+
+                M4A1_Right.SetActive(weaponStock);
+                M4A1_Left.SetActive(currentWeapon);
+
+            }
+            if(weaponInt == 3)
+            {
+                M4A1_Left.SetActive(currentWeapon);
+                M4A1_Right.SetActive(currentWeapon);
+
             }
 
         }
